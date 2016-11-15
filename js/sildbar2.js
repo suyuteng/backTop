@@ -1,0 +1,37 @@
+//requirejs定义函数对象实现工具插件
+define(['jquery'],function($){
+	function Sildbar2(elId,closeId,opts){
+		console.log(this);
+		this.opts=$.extend({},Sildbar2.DEFAULTS,opts);
+		this.$el=$(elId);
+		this.$closeIdel=$(closeId);
+		var self=this;
+		console.log(this.opts.state);
+		this.$el.on('click',function(event){
+			if(event.target!==this){
+				self.triggerSwitch();
+			}
+		})
+	}
+	Sildbar2.DEFAULTS={
+		state:'opened',
+	}
+	Sildbar2.prototype.close=function(){
+		console.log('关闭sildbar');
+		this.opts.state="close";
+	}
+	Sildbar2.prototype.open=function(){
+		console.log('打开sildbar');
+		this.opts.state="opened";
+	}
+	Sildbar2.prototype.triggerSwitch=function(){
+		if(this.opts.state==='opened'){
+			this.close();
+		}else{
+			this.open();
+		}
+	}
+	return{
+		Sildbar2:Sildbar2
+	}
+})
